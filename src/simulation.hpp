@@ -17,7 +17,7 @@ class Simulation {
         /** Attributes **/
 
         // Vector containing all independent double pendulum systems that will be part of the simulation
-        std::vector<DoublePendulum> dp_vec;
+        std::vector<DoublePendulum> double_pendulums;
 
         /* Simulation parameters */
 
@@ -36,8 +36,10 @@ class Simulation {
 
         /** Methods **/
 
+        // Creates the SFML window and assigns it to the `window` attribute
         void createWindow();
 
+        // Clear window painting it with a nice beige color
         void clearWindow();
 
 
