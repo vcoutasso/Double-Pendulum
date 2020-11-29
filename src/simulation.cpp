@@ -9,6 +9,8 @@ Simulation::Simulation() {
     windowHeight = 720;
     timeStep = 0.01f;
 
+    double_pendulums.push_back(DoublePendulum());
+
     createWindow();
 }
 

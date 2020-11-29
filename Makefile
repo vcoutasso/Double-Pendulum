@@ -15,11 +15,12 @@ CC=g++
 # Compiler flags
 CC_FLAGS = -c		 \
 		   -Wall	 \
+		   -Wextra	 \
 		   -pedantic \
 		   -O2
 
 # Linker flags
-L_FLAGS= `pkg-config --cflags --libs sfml-all`
+L_FLAGS= `pkg-config --cflags --libs sfml-all armadillo`
 
 # Compilation and linking
 all: objFolder $(PROJ_NAME)
