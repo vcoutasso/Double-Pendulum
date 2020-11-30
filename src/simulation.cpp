@@ -15,8 +15,11 @@ Simulation::Simulation() {
 }
 
 void Simulation::createWindow() {
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
+
     // Create window
-    window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Rigid Double Pendulum Simulation", sf::Style::Default);
+    window = new sf::RenderWindow(sf::VideoMode(windowWidth, windowHeight), "Rigid Double Pendulum Simulation", sf::Style::Default, settings);
 }
 
 void Simulation::clearWindow() {
@@ -26,8 +29,6 @@ void Simulation::clearWindow() {
 
 // Main method of the simulation. This is where all the calculations are performed, as well as handling the elements of the window
 void Simulation::start() {
-
-    clearWindow();
 
     sf::Clock clock;
 
@@ -50,6 +51,11 @@ void Simulation::start() {
                     break;
             }
         }
+
+        clearWindow();
+
+        for (auto dp : double_pendulums)
+            dp.draw(window);
 
         // Wait until next frame's turn
         if (clock.getElapsedTime().asSeconds() <= 1.f / fps)

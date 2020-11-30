@@ -4,9 +4,10 @@
 #include <SFML/Graphics.hpp>
 #include <armadillo>
 
-class DoublePendulum {
-    private:
 
+class DoublePendulum {
+
+    private:
 
         // Representation of the pendulums
         sf::RectangleShape pend1;
@@ -58,6 +59,9 @@ class DoublePendulum {
 
         // Default constructor
         DoublePendulum();
+
+        // Draw figures
+        void draw(sf::RenderWindow *window);
 
 };
 
