@@ -3,12 +3,17 @@
 
 #include "double_pendulum.hpp"
 
+/*
+* Default constructor for a system with two identical pendulums of size (20, 200), uniforn weight distribution (cenmter of mass at (10, 100))
+* and initial thetas of 90º with respect to the downward vertical position.
+* The pivots are placed so that they the centers of mass are colinear (one at the top, the other at the bottom of pendulum 1).
+*/
 DoublePendulum::DoublePendulum() {
 
     gravity = 9.81;
 
-    theta1 = M_PI;
-    theta2 = M_PI;
+    theta1 = M_PI / 2;
+    theta2 = M_PI / 2;
 
     R1Length = 200;
     R2Length = 200;
@@ -21,13 +26,13 @@ DoublePendulum::DoublePendulum() {
 
     double offset = 15;
 
-    P1 = { offset, R1Length * 0.05 };
-    P2 = { R1Length - offset, R1Length * 0.05 };
+    P1 = { R1Length * 0.05, offset };
+    P2 = { R1Length * 0.05, R1Length - offset };
 
     L1 = { fabs(P1[0] - P2[0]), fabs(P1[1] - P2[1]) };
     L1Length = arma::norm(L1);
 
-    X1 = { R1Length / 2, R1Length * 0.1 / 2 };
+    X1 = { R1Length * 0.1 / 2, R1Length / 2 };
     X2 = L1 + R2;
 
     phi = acos(arma::dot(L1, R1) / (arma::norm(L1) * arma::norm(R1)));
@@ -41,7 +46,7 @@ DoublePendulum::DoublePendulum() {
     sf::Color colorGray(128, 128, 128);
 
     // Initialize graphical elements that represent the system
-    pend1.setSize(sf::Vector2f(R1Length, R1Length * 0.1));
+    pend1.setSize(sf::Vector2f(R1Length * 0.1, R1Length));
     pend1.setOrigin(P1[0], P1[1]);
     pend1.setFillColor(colorGray);
     pend1.setPosition(1280 / 2, 720 / 2);
@@ -60,8 +65,8 @@ DoublePendulum::DoublePendulum() {
     pivot2.setOutlineColor(sf::Color::Black);
     pivot2.setOrigin(pivot2.getRadius(), pivot2.getRadius());
 
-    pend2.setSize(sf::Vector2f(R2Length, R2Length * 0.1));
-    pend2.setOrigin(R1Length - P2[0], P2[1]);
+    pend2.setSize(sf::Vector2f(R2Length * 0.1, R2Length));
+    pend2.setOrigin(P2[0], R1Length - P2[1]);
     pend2.setFillColor(colorGray);
     pend2.setOutlineColor(sf::Color::Black);
     pend2.setOutlineThickness(2);
@@ -71,8 +76,8 @@ DoublePendulum::DoublePendulum() {
 void DoublePendulum::draw(sf::RenderWindow *window) {
     
     // Change positions according to attributes
-    pend1.setRotation(theta1 * 180 / M_PI);
-    pend2.setRotation(theta2 * 180 / M_PI);
+    pend1.setRotation(-theta1 * 180 / M_PI); // Negative angles to match the references' illustration
+    pend2.setRotation(-theta2 * 180 / M_PI);
     pivot1.setPosition(pend1.getTransform().transformPoint(P1[0], P1[1]));
     pivot2.setPosition(pend1.getTransform().transformPoint(P2[0], P2[1]));
     pend2.setPosition(pend1.getTransform().transformPoint(P2[0], P2[1]));
