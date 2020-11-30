@@ -6,7 +6,7 @@
 /*
 * Default constructor for a system with two identical pendulums of size (20, 200), uniforn weight distribution (cenmter of mass at (10, 100))
 * and initial thetas of 90º with respect to the downward vertical position.
-* The pivots are placed so that they the centers of mass are colinear (one at the top, the other at the bottom of pendulum 1).
+* The pivots are placed so that both the pivots the center of mass are colinear (one at the top, the other at the bottom of pendulum 1).
 */
 DoublePendulum::DoublePendulum() {
 
@@ -24,8 +24,10 @@ DoublePendulum::DoublePendulum() {
     R1 = { R1Length * sin(theta1), -R1Length * cos(theta1) };
     R2 = { R2Length * sin(theta2), -R2Length * cos(theta2) };
 
+    // Offset of the pivot (y axis)
     double offset = 15;
 
+    // Place pivots exactly at the pendulum's x axis center, and respecting the offset in the y axis
     P1 = { R1Length * 0.05, offset };
     P2 = { R1Length * 0.05, R1Length - offset };
 
